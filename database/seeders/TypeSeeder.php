@@ -13,7 +13,7 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('type')->insert([
+        DB::table('types')->insert([
             ['name'=>'danh từ','date'=>'2023-10-12'],
             ['name'=>'động từ','date'=>'2023-10-12'],
             ['name'=>'phó từ','date'=>'2023-10-12'],

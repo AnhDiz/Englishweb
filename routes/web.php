@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\Typecontroller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,8 +33,14 @@ Route::get('/register',[Usercontroller::class ,'register'])->name('register');//
 Route::post('/register',[Usercontroller::class ,'postregister']);
 
 
-Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
-Route::get('/',[Admincontroller::class ,'admin'])->name('admin');
+// Route::get('/',[Admincontroller::class ,'admin'])->name('admin');
+Route::group(['prefix' => 'admin'],function(){
+    Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');
+
+    Route::resources([
+        'type'=> Typecontroller::class
+    ]);
+});
 //Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
 // Route::prefix('admin')->middleware('admin')->group(function(){

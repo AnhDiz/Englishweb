@@ -32,7 +32,7 @@ Route::post('/register',[Usercontroller::class ,'postregister']);
 
 
 Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
-
+Route::get('/',[Admincontroller::class ,'admin'])->name('admin');
 //Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
 // Route::prefix('admin')->middleware('admin')->group(function(){

@@ -41,7 +41,7 @@
 								</ul>
 							</li>
 							<li><a href="elements.html">Elements</a></li>
-							<li><a href="login.html" class="button primary">Sign Up</a></li>
+							<li><a href="{{route('register')}}" class="button primary">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>

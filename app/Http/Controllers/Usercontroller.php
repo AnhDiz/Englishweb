@@ -60,7 +60,7 @@ class Usercontroller extends Controller
                 return redirect()->route('home');
 
             }elseif(Auth::attempt($credentialsadmin)){
-                return redirect()->route('admin');
+                return redirect()->route('loginadmin');
             } 
            
             else {

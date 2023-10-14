@@ -31,7 +31,7 @@ Route::get('/register',[Usercontroller::class ,'register'])->name('register');//
 Route::post('/register',[Usercontroller::class ,'postregister']);
 
 
-Route::get('/',[Admincontroller::class ,'admin'])->name('admin');
+Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
 //Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 

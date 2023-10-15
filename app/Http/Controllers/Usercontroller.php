@@ -73,4 +73,12 @@ class Usercontroller extends Controller
         Auth::logout();
         return redirect()->back();
     }
+
+    // public function site(){
+    //     return view('layout.site');
+    // }
+
+    public function now(){
+        return view('now');
+    }
 }

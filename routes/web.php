@@ -21,22 +21,17 @@ Route::get('/', function () {
     return view('index');
 });
 
+// Route::get('/site',[Usercontroller::class ,'site'])->name('site');
 
 Route::get('/home',[Homecontroller::class ,'home'])->name('home');
-
-// Route::get('/', [Homecontroller:: class,'index'])->name('index');
-
 Route::get('/login',[Usercontroller::class ,'login'])->name('login');
 Route::post('/login',[Usercontroller::class ,'postlogin']);
-
 Route::get('/register',[Usercontroller::class ,'register'])->name('register');//name để gọi qua route 
 Route::post('/register',[Usercontroller::class ,'postregister']);
-
 Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');
-
 Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
-
+Route::get('/now',[Usercontroller::class ,'now'])->name('now');
 
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');

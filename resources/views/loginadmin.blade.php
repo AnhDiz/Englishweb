@@ -9,7 +9,7 @@
     login admin 
 
     <a href="{{ route('home') }}">home</a>
-    <a href="{{ route('admin') }}">admin</a>
+    <a href="{{ route('admin.dashboard') }}">admin.dashboard</a>
 
 </body>
 </html>

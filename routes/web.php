@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin'],function(){
         'type'=> Typecontroller::class
     ]);
 });
-//Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
+Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
 // Route::prefix('admin')->middleware('admin')->group(function(){
 //     Route::get('/',[Admincontroller::class ,'admin'])->name('admin');

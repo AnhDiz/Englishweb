@@ -32,7 +32,6 @@ class Usercontroller extends Controller
         }
         catch(\Throwable $th)
         {   
-
             dd($th);
             // return redirect()->route('login');
         }
@@ -44,6 +43,7 @@ class Usercontroller extends Controller
 
     public function postlogin(Request $request)
         {
+            
             $credentials = [
                 'email' => $request->email,
                 'password' => $request->password,
@@ -56,13 +56,13 @@ class Usercontroller extends Controller
             ];
 
             if (Auth::attempt($credentials)) {
+                dd($request);
 
                 return redirect()->route('home');
 
             }elseif(Auth::attempt($credentialsadmin)){
                 return redirect()->route('loginadmin');
-            } 
-           
+            }
             else {
                 return redirect()->back()->with('error', 'Sai thông tin tài khoản');
             }

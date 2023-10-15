@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 Route::get('/home',[Homecontroller::class ,'home'])->name('home');
 Route::get('/login',[Usercontroller::class ,'login'])->name('login');
-Route::post('/login',[Usercontroller::class ,'postlogin']);
+Route::post('/login',[Usercontroller::class ,'postlogin'])->name('postlogin');
 Route::get('/register',[Usercontroller::class ,'register'])->name('register');//name để gọi qua route 
 Route::post('/register',[Usercontroller::class ,'postregister']);
 Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');

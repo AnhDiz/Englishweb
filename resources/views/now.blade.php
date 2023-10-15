@@ -1,4 +1,4 @@
 @extends('layouts.site')
-<!-- @section('test')
+@section('test')
 helooo
-@endsection -->
+@stop();

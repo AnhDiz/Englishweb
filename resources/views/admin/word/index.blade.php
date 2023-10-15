@@ -1,9 +1,21 @@
 @extends('layouts.admin')
-@section('title','Type list')
+@section('title','Word list')
 @section('main')
 <form action="" class= "form-inline" >
+    <select name="type" id="" >
+        <option value="0">Tất cả</option>
+        <option value="1">danh từ</option>
+        <option value="2">động từ</option>
+        <option value="3">phó từ</option>
+        <option value="4">tính từ</option>
+        <option value="5">đại từ</option>
+        <option value="6">liên từ</option>
+        <option value="7">giới từ</option>
+        <option value="8">thán từ</option>
+        <option value="9">viết tắt</option>
+    </select>
     <div class="form-group">
-        <input type="text" class="form-control" name ="search" placeholder="Tìm kiếm">
+        <input type="text" class="form-control" name = "search" placeholder="Tìm kiếm" value ="{{$search}}">
     </div>
     <button type="submit" class="btn btn-primary">
         <i class="fas fa-search"></i>
@@ -12,29 +24,29 @@
 <table class="table table-hover">
     <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Total</th>
-                <th>Create Date</th>
-                <th>Update Date</th>
+                <th>Word</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Pronounce</th>
                 <th class="text-right">Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($list as $table)
             <tr>
-                <td>{{$table->id}}</td>
-                <td>{{$table->name}}</td>
-                <td>{{$table->words ? $table->words->count() : 0}}</td>
-                <td>{{$table->created_at->format('d-m-Y')}}</td>
-                <td>{{$table->updated_at->format('d-m-Y')}}</td>
+                <td>{{$table->word}}</td>
+                <td>{{$table->type->name}}</td>
+                <td>{{$table->description}}</td>
+                <td>{{$table->pronounce}}</td>
+                <td>
                 <td class="text-right"> 
-                    <a href="{{route('type.edit',$table->id)}}"class="btn btn-sm btn-succes">
+                    <a href="{{route('word.edit',$table->id)}}"class="btn btn-sm btn-succes">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="{{route('type.destroy',$table->id)}}" class="btn btn-sm btn-succes btndelete">
+                    <a href="{{route('word.destroy',$table->id)}}" class="btn btn-sm btn-succes btndelete">
                         <i class="fas fa-trash"></i>
                     </a>
+                </td>
                 </td>
             </tr>
             @endforeach

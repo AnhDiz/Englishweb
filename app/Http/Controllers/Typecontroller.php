@@ -36,7 +36,9 @@ class Typecontroller extends Controller
             'name.required'=>'Tên loại không được để trống',
             'name.unique'=> 'Loại từ này đã có trong CSDL'
         ]);
-        
+        if(Word::create($request->all())){
+            return redirect()->route('type.index')->with('success','Thêm loại từ mới thành công');
+        }
     }
 
     /**
@@ -52,7 +54,7 @@ class Typecontroller extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.type.edit',compact('type'));
     }
 
     /**
@@ -60,7 +62,8 @@ class Typecontroller extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $type->update($request->only('name'));
+        return redirect()->route('type.index')->with('success','sửa thành công');
     }
 
     /**
@@ -68,6 +71,15 @@ class Typecontroller extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        try {
+            if($type->words->count() > 0){
+                return redirect()->route('type.index')->with('error','không thể xóa loại từ này');
+            }else{
+                $type->delete();
+                return redirect()->route('type.index')->with('success','xóa thành công');
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 }

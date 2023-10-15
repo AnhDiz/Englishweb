@@ -5,6 +5,8 @@ use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\Typecontroller;
+use App\Http\Controllers\Wordcontroller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,8 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');
 
     Route::resources([
-        'type'=> Typecontroller::class
+        'type'=> Typecontroller::class,
+        'word'=> Wordcontroller::class
     ]);
 });
 

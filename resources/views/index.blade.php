@@ -40,26 +40,8 @@
 									</li>
 								</ul>
 							</li>
-
 							<li><a href="elements.html">Elements</a></li>
-
-
-
-							<li>
-							@if(Auth::check())	
-							<a href="" class="button primary">{{Auth::user()->name}}</a>
-							
-							@else
-							<a href="{{route('register')}}" class="button primary">Sigin in</a>
-							@endif
-
-								<ul>
-									<li><a href="{{route('logout')}}">logout</a></li>
-									<li><a href="right-sidebar.html">setting</a></li>
-								
-								</ul>
-
-							</li>
+							<li><a href="{{route('register')}}" class="button primary">Sign Up</a></li>
 						</ul>
 					</nav>
 				</header>

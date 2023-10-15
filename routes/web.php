@@ -18,7 +18,7 @@ use App\Http\Controllers\Typecontroller;
 */
 
 Route::get('/', function () {   
-    return view('welcome');
+    return view('index');
 });
 
 
@@ -32,8 +32,12 @@ Route::post('/login',[Usercontroller::class ,'postlogin']);
 Route::get('/register',[Usercontroller::class ,'register'])->name('register');//name để gọi qua route 
 Route::post('/register',[Usercontroller::class ,'postregister']);
 
+Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');
 
-// Route::get('/',[Admincontroller::class ,'admin'])->name('admin');
+Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
+
+
+
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');
 
@@ -41,7 +45,7 @@ Route::group(['prefix' => 'admin'],function(){
         'type'=> Typecontroller::class
     ]);
 });
-Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
+
 
 // Route::prefix('admin')->middleware('admin')->group(function(){
 //     Route::get('/',[Admincontroller::class ,'admin'])->name('admin');

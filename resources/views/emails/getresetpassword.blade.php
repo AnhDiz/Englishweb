@@ -32,7 +32,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
-                  <h3 class="mb-3">Login Now</h3>
+                  <h3 class="mb-3">Reset Password</h3>
                     <div class="bg-white shadow rounded">
                         <div class="row">
                             <div class="col-md-7 pe-0">
@@ -40,18 +40,25 @@
 
                                     <form action="" method="POST" class="row g-4">
                                         @csrf 
-                                        @if (Session::has('success') && Session::has('redirectRoute'))
+                                        @if ($message = Session::get('error'))
+
+                                            <div class="alert alert-danger alert-block">
+
+                                                <button type="button" class="close" data-dismiss="alert">×</button>	
+
+                                                    <strong>{{ $message }}</strong>
+
+                                            </div>
+
+                                        @endif
+                                        @if ($message = Session::get('success'))
                                             <div class="alert alert-success alert-block">
                                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                                <strong>{{ Session::get('success') }}</strong>
+                                                <strong>{{ $message }}</strong>
                                             </div>
-                                            <script>
-                                                setTimeout(function(){
-                                                    window.location.href = "{{ route(Session::get('redirectRoute')) }}";
-                                                }, 800);
-                                            </script>
                                         @endif
 
+                                            <p>Hãy thiết lập mật khẩu mới cho tài khoản của mình </p>
                                             <div class="col-12">
                                                 <label>Email<span class="text-danger">*</span></label>
                                                 <div class="input-group">
@@ -67,28 +74,18 @@
                                                     <input type="text" class="form-control" placeholder="Enter Password" name="password">
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                                                    <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                                            <div class="col-12">
+                                                <label>Config Password<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
+                                                    <input type="text" class="form-control" placeholder="Enter Password" name="password">
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
-                                                <a href="{{route('forgetpassword')}}" class="float-end text-primary">Forgot Password?</a>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <div class="form-check">
-                                                    
-                                                    <!-- <a href="register" class="form-check-label" for="inlineFormCheck">Register?</a> -->
-                                                    <a href="{{route('register')}}" class="form-check-label" for="inlineFormCheck">Register?</a>
-                                                </div>
-                                            </div>
+                                      
 
                                             <div class="col-12">
-                                                <button type="submit" class="btn btn-primary px-4 float-end mt-4">login</button>
+                                                <button type="submit" class="btn btn-primary px-4 float-end mt-4">Reset Password</button>
                                             </div>
                                     </form>
                                 </div>

@@ -21,8 +21,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/site',[Usercontroller::class ,'site'])->name('site');
 
+// login-resigter
 Route::get('/home',[Homecontroller::class ,'home'])->name('home');
 Route::get('/login',[Usercontroller::class ,'login'])->name('login');
 Route::post('/login',[Usercontroller::class ,'postlogin']);
@@ -31,7 +31,19 @@ Route::post('/register',[Usercontroller::class ,'postregister']);
 Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');
 Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
 
+//retset-password 
+Route::get('/forget-password',[Usercontroller::class ,'forgetpassword'])->name('forgetpassword');
+Route::post('/forget-password',[Usercontroller::class ,'postforgetpassword']);//lấy dữ liệu từ from
+
+Route::get('/get-password',[Usercontroller::class ,'getresetpassword'])->name('getresetpassword');//from pass mới
+Route::post('/get-password',[Usercontroller::class ,'postresetpassword']);//xử lý from 
+
+//điều hướng 
+
 Route::get('/now',[Usercontroller::class ,'now'])->name('now');
+
+
+
 
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');

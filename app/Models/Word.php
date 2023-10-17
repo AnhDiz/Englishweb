@@ -9,6 +9,14 @@ class Word extends Model
 {
     use HasFactory;
     protected $table = 'av';
+    protected $fillable = [
+        'word',
+        'html',
+        'type_id',
+        'description',
+        'pronounce'
+    ];
+
     public function scopeSearch($query){
         if($search = request()->search){
             $query = $query->where('word','like','%'.$search.'%');

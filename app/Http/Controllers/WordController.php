@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Word;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class WordController extends Controller
@@ -10,9 +11,17 @@ class WordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+    {   
+        $type = $request->type;
+        $search = $request->search;
+        if($type == 0){
+            $list = Word::orderBy('id','ASC')->search()->paginate(15);
+        }else{
+            $list = Word::orderBy('id','ASC')->where('type_id','like',$request->type)->search()->paginate(15);
+        }
+        
+        return view('admin.word.index',compact('list','type','search'));
     }
 
     /**
@@ -20,7 +29,8 @@ class WordController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::orderBy('id','ASC')->select('id','name')->get();
+        return view('admin.word.create',compact('types'));
     }
 
     /**
@@ -28,7 +38,9 @@ class WordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Word::create($request->all())){
+            return redirect()->route('word.index')->with('success','Thêm từ mới thành công');
+        }
     }
 
     /**
@@ -44,7 +56,8 @@ class WordController extends Controller
      */
     public function edit(Word $word)
     {
-        //
+        $types = Type::orderBy('id','ASC')->select('id','name')->get();
+        return view('admin.word.edit',compact('word','types'));
     }
 
     /**
@@ -60,6 +73,7 @@ class WordController extends Controller
      */
     public function destroy(Word $word)
     {
-        //
+        $word->delete();
+        return redirect()->route('word.index')->with('success','xóa thành công');
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 class Usercontroller extends Controller
 {
     //
@@ -34,7 +35,6 @@ class Usercontroller extends Controller
         }
         catch(\Throwable $th)
         {   
-
             dd($th);
             
         }
@@ -46,6 +46,7 @@ class Usercontroller extends Controller
 
     public function postlogin(Request $request)
         {
+            
             $credentials = [
                 'email' => $request->email,
                 'password' => $request->password,
@@ -71,6 +72,8 @@ class Usercontroller extends Controller
             
             if (isset($successMessage) && isset($redirectRoute)) {
                 return redirect()->back()->with('success', $successMessage)->with('redirectRoute', $redirectRoute);
+            } elseif (Session::has('error')) {
+                return redirect()->back()->with('error', Session::get('error'));
             }
         }
 

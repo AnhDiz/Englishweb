@@ -5,6 +5,8 @@ use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\Typecontroller;
+use App\Http\Controllers\Wordcontroller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,7 @@ Route::get('/', function () {
 // login-resigter
 Route::get('/home',[Homecontroller::class ,'home'])->name('home');
 Route::get('/login',[Usercontroller::class ,'login'])->name('login');
-Route::post('/login',[Usercontroller::class ,'postlogin']);
+Route::post('/login',[Usercontroller::class ,'postlogin'])->name('postlogin');
 Route::get('/register',[Usercontroller::class ,'register'])->name('register');//name để gọi qua route 
 Route::post('/register',[Usercontroller::class ,'postregister']);
 Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');
@@ -49,7 +51,8 @@ Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');
 
     Route::resources([
-        'type'=> Typecontroller::class
+        'type'=> Typecontroller::class,
+        'word'=> Wordcontroller::class
     ]);
 });
 

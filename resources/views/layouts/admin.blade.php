@@ -5,14 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Fixed Sidebar</title>
-
-  <!-- Google Font: Source Sans Pro -->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{url('/ad111')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{url('/ad111')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{url('/ad111')}}/dist/css/adminlte.min.css">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -99,7 +98,29 @@
               </li>
             </ul>
           </li>
-          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Word
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('word.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Word list</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('word.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Word create</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -117,8 +138,19 @@
           <div class="col-12">
             <!-- Default box -->
             <div class="card">
-              
               <div class="card-body">
+                @if(Session::has('error'))
+                <div class="alert alert-danger">
+                  <button class = "close" type = "button" data-dismiss = "alert" aria-hidden = "true">&times;</button>
+                  {{Session::get('error')}}
+                </div>
+                @endif
+                @if(Session::has('success'))
+                <div class="alert alert-success">
+                  <button class = "close" type = "button" data-dismiss = "alert" aria-hidden = "true">&times;</button>
+                  {{Session::get('success')}}
+                </div>
+                @endif
                 @yield('main')
               </div>
             </div>
@@ -154,7 +186,6 @@
 <script src="{{url('/ad111')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{url('/ad111')}}/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="{{url('/ad111')}}/dist/js/demo.js"></script -->
+@yield('js')
 </body>
 </html>

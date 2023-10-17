@@ -41,16 +41,22 @@
                                     <form action="" method="POST" class="row g-4">
                                         @csrf 
                                         @if (Session::has('success') && Session::has('redirectRoute'))
-                                            <div class="alert alert-success alert-block">
+                                        <div class="alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <strong>{{ Session::get('success') }}</strong>
+                                        </div>
+                                        <script>
+                                            setTimeout(function(){
+                                                window.location.href = "{{ route(Session::get('redirectRoute')) }}";
+                                            }, 800);
+                                        </script>
+                                        @elseif (Session::has('error'))
+                                            <div class="alert alert-danger alert-block">
                                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                                <strong>{{ Session::get('success') }}</strong>
+                                                <strong>{{ Session::get('error') }}</strong>
                                             </div>
-                                            <script>
-                                                setTimeout(function(){
-                                                    window.location.href = "{{ route(Session::get('redirectRoute')) }}";
-                                                }, 800);
-                                            </script>
                                         @endif
+                                        
 
                                             <div class="col-12">
                                                 <label>Email<span class="text-danger">*</span></label>

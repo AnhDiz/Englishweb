@@ -1,6 +1,6 @@
-@extends('layouts.site')
+@extends('layouts.admin')
 
-@section('test')
+@section('main')
     <br>
     <br>
     <div class ="row">

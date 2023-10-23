@@ -190,12 +190,12 @@ class Usercontroller extends Controller
         return redirect()->route('login')->with('Đổi mật khẩu thành công  ');
     }
     //quản lý 
-    public function quanlyuser(){
-        $quanlyuser = User::paginate();
-        return view('quanly',compact('quanlyuser'))->with('i',(request()->input('page',1)-1)*5);
+            public function quanlyuser(){
+                $quanlyuser = User::paginate();
+                return view('quanly',compact('quanlyuser'))->with('i',(request()->input('page',1)-1)*5);
 
 
-    }
+            }
 
             public function delete($id)
             {

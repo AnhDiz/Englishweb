@@ -40,7 +40,7 @@ Route::post('/forget-password',[Usercontroller::class ,'postforgetpassword']);//
 Route::get('/get-password',[Usercontroller::class ,'getresetpassword'])->name('getresetpassword');//from pass mới
 Route::post('/get-password',[Usercontroller::class ,'postresetpassword']);//xử lý from 
 
-//điều hướng 
+//điều hướng quan lý user
 Route::get('/quanly', [UserController::class, 'quanlyuser'])->name('quanly');
 Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('quanly.delete');
 Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
@@ -59,7 +59,8 @@ Route::group(['prefix' => 'admin'],function(){
 
     Route::resources([
         'type'=> Typecontroller::class,
-        'word'=> Wordcontroller::class
+        'word'=> Wordcontroller::class,
+        'user'=> Usercontroller::class
     ]);
 });
 

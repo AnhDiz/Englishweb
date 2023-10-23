@@ -31,7 +31,7 @@ Route::post('/login',[Usercontroller::class ,'postlogin'])->name('postlogin');
 Route::get('/register',[Usercontroller::class ,'register'])->name('register');//name để gọi qua route 
 Route::post('/register',[Usercontroller::class ,'postregister']);
 Route::get('/logout',[Usercontroller::class ,'logout'])->name('logout');
-Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin');
+Route::get('/loginadmin',[Admincontroller::class ,'loginadmin'])->name('loginadmin')->middleware('admin.auth');
 
 //retset-password 
 Route::get('/forget-password',[Usercontroller::class ,'forgetpassword'])->name('forgetpassword');
@@ -41,6 +41,13 @@ Route::get('/get-password',[Usercontroller::class ,'getresetpassword'])->name('g
 Route::post('/get-password',[Usercontroller::class ,'postresetpassword']);//xử lý from 
 
 //điều hướng 
+Route::get('/quanly', [UserController::class, 'quanlyuser'])->name('quanly');
+Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('quanly.delete');
+Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
+Route::put('/quanly/update/{id}', [UserController::class, 'update'])->name('quanly.update');
+
+// Route::put('/quanly/edit/{id}', [UserController::class,'edit']);
+
 
 Route::get('/now',[Usercontroller::class ,'now'])->name('now');
 

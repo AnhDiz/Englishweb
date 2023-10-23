@@ -41,21 +41,22 @@
                                     <form action="" method="POST" class="row g-4">
                                         @csrf 
                                         @if (Session::has('success') && Session::has('redirectRoute'))
-                                        <div class="alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <strong>{{ Session::get('success') }}</strong>
-                                        </div>
-                                        <script>
-                                            setTimeout(function(){
-                                                window.location.href = "{{ route(Session::get('redirectRoute')) }}";
-                                            }, 800);
-                                        </script>
+                                            <div class="alert alert-success alert-block">
+                                                <button type="button" class="close" data-dismiss="alert" onclick="closeAlert(this)">&times;</button>
+                                                <strong>{{ Session::get('success') }}</strong>
+                                            </div>
+                                            <script>
+                                                setTimeout(function () {
+                                                    window.location.href = "{{ route(Session::get('redirectRoute')) }}";
+                                                }, 800);
+                                            </script>
                                         @elseif (Session::has('error'))
                                             <div class="alert alert-danger alert-block">
-                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <button type="button" class="close" data-dismiss="alert" onclick="closeAlert(this)">&times;</button>
                                                 <strong>{{ Session::get('error') }}</strong>
                                             </div>
                                         @endif
+
                                         
 
                                             <div class="col-12">
@@ -114,6 +115,12 @@
     </div>
 
     <!-- Bootstrap JS -->
-     
+     <script>
+        function closeAlert(button) {
+    var alert = button.parentElement;
+    alert.style.display = "none";
+}
+
+     </script>
 </body>
 </html>

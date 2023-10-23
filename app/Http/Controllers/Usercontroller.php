@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 class Usercontroller extends Controller
@@ -45,37 +46,55 @@ class Usercontroller extends Controller
 
 
     public function postlogin(Request $request)
-        {
-            
-            $credentials = [
-                'email' => $request->email,
-                'password' => $request->password,
-                'role'=>0
-            ];
-            $credentialsadmin = [
-                'email' => $request->email,
-                'password' => $request->password,
-                'role'=>1
-            ];
-
-            if (Auth::attempt($credentials)) {
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $credentials = [
+            'email' => $request->email,
+            'role' => 0
+        ];
+    
+        $credentialsadmin = [
+            'email' => $request->email,
+            'role' => 1
+        ];
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email không tồn tại.');
+        }
+    
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if ($user->role === 0) {
                 session(['role' => 0]);
                 $successMessage = 'Đăng nhập thành công';
                 $redirectRoute = 'home';
-            } elseif (Auth::attempt($credentialsadmin)) {
+            } elseif ($user->role === 1) {
                 session(['role' => 1]);
                 $successMessage = 'Đăng nhập thành công';
                 $redirectRoute = 'loginadmin';
-            } else {
-                return redirect()->back()->with('error', 'Đăng nhập không thành công');
             }
-            
-            if (isset($successMessage) && isset($redirectRoute)) {
-                return redirect()->back()->with('success', $successMessage)->with('redirectRoute', $redirectRoute);
-            } elseif (Session::has('error')) {
-                return redirect()->back()->with('error', Session::get('error'));
-            }
+        } else {
+            // Kiểm tra mật khẩu không hợp lệ
+            return redirect()->back()->with('error', 'Mật khẩu không đúng.');
         }
+    
+        if (isset($successMessage) && isset($redirectRoute)) {
+            return redirect()->route($redirectRoute)->with('success', $successMessage);
+        }
+    
+        return redirect()->back()->with('error', 'Đăng nhập không thành công');
+    }
+    
+    
 
     
     public function logout(){
@@ -170,5 +189,68 @@ class Usercontroller extends Controller
 
         return redirect()->route('login')->with('Đổi mật khẩu thành công  ');
     }
+    //quản lý 
+    public function quanlyuser(){
+        $quanlyuser = User::paginate();
+        return view('quanly',compact('quanlyuser'))->with('i',(request()->input('page',1)-1)*5);
+
+
+    }
+
+            public function delete($id)
+            {
+                // Tìm và xóa người dùng có ID tương ứng
+                User::where('id', $id)->delete();
+            
+                return redirect()->back()->with('success', 'Xóa thành công.');
+            }
+            
+            public function edit($id)
+            {
+                // Tìm người dùng có ID tương ứng để hiển thị trang chỉnh sửa
+                $user = User::find($id);
+                
+                if (!$user) {
+                    return redirect()->back()->with('error', 'Không tìm thấy người dùng.');
+                }
+            
+                return view('edit', compact('user'));
+            }
+            
+            public function update(Request $request, $id)
+            {
+                // Xác thực dữ liệu từ form
+                $validatedData = $request->validate([
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:users,email,'.$id,
+                    'password' => 'nullable|string|min:6',
+                    // 'phone' => 'nullable|string|max:15',
+                    'role' => 'required|integer' // Thêm xác thực cho cột 'role'
+                ]);
+            
+                // Tìm người dùng cần cập nhật
+                $user = User::find($id);
+            
+                if (!$user) {
+                    return redirect()->back()->with('error', 'Không tìm thấy người dùng.');
+                }
+            
+                // Cập nhật thông tin người dùng
+                $user->name = $validatedData['name'];
+                $user->email = $validatedData['email'];
+                $user->role = $validatedData['role']; 
+                // Kiểm tra xem có cập nhật mật khẩu không
+                if (!empty($validatedData['password'])) {
+                    $user->password = Hash::make($validatedData['password']);
+                }
+                // $user->phone = $validatedData['phone'];
+            
+                // Lưu cập nhật vào cơ sở dữ liệu
+                $user->save();
+            
+                return redirect()->route('quanly')->with('success', 'Cập nhật thông tin người dùng thành công.');
+            }
+            
+
     
 }

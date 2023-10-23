@@ -251,6 +251,29 @@ class Usercontroller extends Controller
                 return redirect()->route('quanly')->with('success', 'Cập nhật thông tin người dùng thành công.');
             }
             
+            //add quan lý 
+            public function quanlyadd(){
+                return view('add');
+            }
+
+            public function store(Request $request)
+                {
+                    $validatedData = $request->validate([
+                        'name' => 'required|string|max:255',
+                        'email' => 'required|email|unique:users,email',
+                        'password' => 'required|string|min:6',
+                        'role' => 'required|in:0,1', // Kiểm tra role phải là 0 hoặc 1
+                    ]);
+
+                    $user = new User();
+                    $user->name = $validatedData['name'];
+                    $user->email = $validatedData['email'];
+                    $user->password = Hash::make($validatedData['password']);
+                    $user->role = $validatedData['role'];
+                    $user->save();
+
+                    return redirect()->route('quanly')->with('success', 'Thêm tài khoản thành công.');
+                }
 
     
 }

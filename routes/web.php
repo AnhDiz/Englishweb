@@ -46,7 +46,8 @@ Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('q
 Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
 Route::put('/quanly/update/{id}', [UserController::class, 'update'])->name('quanly.update');
 
-// Route::put('/quanly/edit/{id}', [UserController::class,'edit']);
+Route::get('quanly/add', [UserController::class, 'quanlyadd'])->name('quanly.add');
+Route::post('quanly/store', [UserController::class, 'store'])->name('quanly.store');
 
 
 Route::get('/now',[Usercontroller::class ,'now'])->name('now');

@@ -22,6 +22,7 @@
 					<h1 id="logo"><a href="index.html">Landed</a></h1>
 					<nav id="nav">
 						<ul>
+							<li><a href="{{route('word.search')}}">Tìm kiếm từ vựng</a></li>
 							<li><a href="index.html">Home</a></li>
 							<li>
 								<a href="#">Layouts</a>
@@ -42,9 +43,7 @@
 							</li>
 
 							<li><a href="elements.html">Elements</a></li>
-
-
-
+							
 							<li>
 							@if(Auth::check())	
 							<a href="" class="button primary">{{Auth::user()->name}}</a>

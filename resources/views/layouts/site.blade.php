@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		@yield('css')
 	</head>
 
 	
@@ -18,6 +19,7 @@
 					<h1 id="logo"><a href="index.html">Landed</a></h1>
 					<nav id="nav">
 						<ul>
+							<li><a href="{{route('word.search')}}">Tìm kiếm từ vựng</a></li>
 							<li><a href="index.html">Home</a></li>
 							<li>
 								<a href="#">Layouts</a>
@@ -41,8 +43,9 @@
 						</ul>
 					</nav>
 				</header>
-
-			@yield('test');
+				<div class="wrapper">
+					@yield('test');
+				</div>
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">

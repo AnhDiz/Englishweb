@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Word;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class WordController extends Controller
 {
@@ -20,8 +21,13 @@ class WordController extends Controller
         }else{
             $list = Word::orderBy('id','ASC')->where('type_id','like',$request->type)->search()->paginate(15);
         }
-        
-        return view('admin.word.index',compact('list','type','search'));
+        $role = Session::get('role');
+        if($role == '1'){
+            
+            return view('admin.word.index',compact('list','type','search'));
+        }else{
+            return view('home.word',compact('list','search'));
+        }
     }
 
     /**
@@ -31,6 +37,12 @@ class WordController extends Controller
     {
         $types = Type::orderBy('id','ASC')->select('id','name')->get();
         return view('admin.word.create',compact('types'));
+    }
+
+    public function detail(){
+        $id = request()->id;
+        $word = Word::find($id);
+        return view('home.detail',['word'=>$word]);
     }
 
     /**

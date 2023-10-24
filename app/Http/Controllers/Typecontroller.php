@@ -36,7 +36,7 @@ class Typecontroller extends Controller
             'name.required'=>'Tên loại không được để trống',
             'name.unique'=> 'Loại từ này đã có trong CSDL'
         ]);
-        if(Word::create($request->all())){
+        if(Type::create($request->all())){
             return redirect()->route('type.index')->with('success','Thêm loại từ mới thành công');
         }
     }

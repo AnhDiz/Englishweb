@@ -53,7 +53,8 @@ Route::post('quanly/store', [UserController::class, 'store'])->name('quanly.stor
 Route::get('/now',[Usercontroller::class ,'now'])->name('now');
 
 
-
+Route::get('/search',[Wordcontroller::class,'index'])->name('word.search');
+Route::get('/word-detail',[Wordcontroller::class,'detail'])-> name('word.detail');
 
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');

@@ -74,11 +74,13 @@ class Usercontroller extends Controller
     
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             if ($user->role === 0) {
-                session(['role' => 0]);
+                Session::push('role','0');
+                Session::push('username',Auth::user()->name);
                 $successMessage = 'Đăng nhập thành công';
                 $redirectRoute = 'home';
             } elseif ($user->role === 1) {
-                session(['role' => 1]);
+                Session::push('role','1');
+                Session::push('username',Auth::user()->name);
                 $successMessage = 'Đăng nhập thành công';
                 $redirectRoute = 'loginadmin';
             }
@@ -100,7 +102,7 @@ class Usercontroller extends Controller
     public function logout(){
         Auth::logout();
         session()->forget('role');
-        return redirect()->back();
+        return redirect()->route('login');
     }
 
     public function now(){

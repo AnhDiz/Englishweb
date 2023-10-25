@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Word;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class WordController extends Controller
@@ -21,9 +22,8 @@ class WordController extends Controller
         }else{
             $list = Word::orderBy('id','ASC')->where('type_id','like',$request->type)->search()->paginate(15);
         }
-        $role = Session::get('role');
+        $role = Auth::user()->role;
         if($role == '1'){
-            
             return view('admin.word.index',compact('list','type','search'));
         }else{
             return view('home.word',compact('list','search'));

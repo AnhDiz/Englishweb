@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Usercontroller;
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\Rolecontroller;
 use App\Http\Controllers\Typecontroller;
 use App\Http\Controllers\Wordcontroller;
+
 
 
 /*
@@ -41,13 +43,12 @@ Route::get('/get-password',[Usercontroller::class ,'getresetpassword'])->name('g
 Route::post('/get-password',[Usercontroller::class ,'postresetpassword']);//xử lý from 
 
 //điều hướng quan lý user
-Route::get('/quanly', [UserController::class, 'quanlyuser'])->name('quanly');
-Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('quanly.delete');
-Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
-Route::put('/quanly/update/{id}', [UserController::class, 'update'])->name('quanly.update');
-
-Route::get('quanly/add', [UserController::class, 'quanlyadd'])->name('quanly.add');
-Route::post('quanly/store', [UserController::class, 'store'])->name('quanly.store');
+// Route::get('/quanly', [UserController::class, 'quanlyuser'])->name('quanly');
+// Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('quanly.delete');
+// Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
+// Route::put('/quanly/update/{id}', [UserController::class, 'update'])->name('quanly.update');
+// Route::get('quanly/add', [UserController::class, 'quanlyadd'])->name('quanly.add');
+// Route::post('quanly/store', [UserController::class, 'store'])->name('quanly.store');
 
 
 Route::get('/now',[Usercontroller::class ,'now'])->name('now');
@@ -56,15 +57,22 @@ Route::get('/now',[Usercontroller::class ,'now'])->name('now');
 Route::get('/search',[Wordcontroller::class,'index'])->name('word.search');
 Route::get('/word-detail',[Wordcontroller::class,'detail'])-> name('word.detail');
 
-Route::group(['prefix' => 'admin'],function(){
+Route::group(['prefix' => 'admin','middleware'=> ['auth']], function(){
     Route::get('/',[Admincontroller::class ,'dashboard'])->name('admin.dashboard');
+
+    Route::get('/quanly', [UserController::class, 'quanlyuser'])->name('quanly');
+    Route::delete('/quanly/delete/{id}', [UserController::class, 'delete'])->name('quanly.delete');
+    Route::get('/quanly/edit/{id}', [UserController::class, 'edit'])->name('quanly.edit');
+    Route::put('/quanly/update/{id}', [UserController::class, 'update'])->name('quanly.update');
+    Route::get('quanly/add', [UserController::class, 'quanlyadd'])->name('quanly.add');
+    Route::post('quanly/store', [UserController::class, 'store'])->name('quanly.store');
 
     Route::resources([
         'type'=> Typecontroller::class,
         'word'=> Wordcontroller::class,
-        'user'=> Usercontroller::class
+        'role'=> Rolecontroller::class
     ]);
-});
+})->middleware('admin.auth');
 
 
 // Route::prefix('admin')->middleware('admin')->group(function(){

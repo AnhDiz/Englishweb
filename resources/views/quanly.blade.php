@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="table-container">
+    <div class="table-hover">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
